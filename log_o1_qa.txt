@@ -2,7 +2,7 @@ Number of QA items: 10
 Exact Match Accuracy: 0.0
 
 ROUGE Results:
-  rouge1: 0.1967
+  rouge1: 0.1833
   rouge2: 0.0667
   rougeL: 0.1967
   rougeLsum: 0.1967
@@ -19,3 +19,7 @@ BERTScore (using bert-base-uncased):
   Average Precision: 0.8133
   Average Recall:    0.8278
   Average F1:        0.8196
+
+Loading SentenceTransformer model for Cosine Similarity...
+Model loaded.
+Average Cosine Similarity: 0.6961586058139801
