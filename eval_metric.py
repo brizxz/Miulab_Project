@@ -15,6 +15,11 @@ import Levenshtein
 import numpy as np
 from scipy.spatial import distance
 
+# For Cosine Similarity
+from sentence_transformers import SentenceTransformer
+from sklearn.metrics.pairwise import cosine_similarity
+
+
 def exact_match_score(prediction: str, reference: str) -> float:
     """Returns 1.0 if the trimmed prediction matches the trimmed reference exactly, else 0.0."""
     return 1.0 if prediction.strip() == reference.strip() else 0.0
@@ -64,6 +69,18 @@ def compute_js_divergences(predictions, references):
         div = js_divergence(p, q)
         divergences.append(div)
     return divergences
+
+def compute_cosine_similarity(predictions, references, model):
+    # Encode all texts in batches for efficiency
+    embeddings_pred = model.encode(predictions, batch_size=32, convert_to_tensor=True)
+    embeddings_ref = model.encode(references, batch_size=32, convert_to_tensor=True)
+    
+    # Compute cosine similarity
+    cosine_sim = cosine_similarity(embeddings_pred.cpu().numpy(), embeddings_ref.cpu().numpy())
+    
+    # Extract diagonal (similarity of each pair)
+    scores = cosine_sim.diagonal()
+    return scores.tolist()
 
 def main():
     parser = argparse.ArgumentParser(
@@ -143,6 +160,15 @@ def main():
     print(f"  Average Precision: {avg_precision:.4f}")
     print(f"  Average Recall:    {avg_recall:.4f}")
     print(f"  Average F1:        {avg_f1:.4f}")
+    
+    # Cosine Similarity
+    print("\nLoading SentenceTransformer model for Cosine Similarity...")
+    model = SentenceTransformer('all-MiniLM-L6-v2')  # You can choose a different model
+    print("Model loaded.")
 
+    cosine_scores = compute_cosine_similarity(predictions, references, model)
+    avg_cosine = sum(cosine_scores) / len(cosine_scores)
+    print("Average Cosine Similarity:", avg_cosine)
+    
 if __name__ == "__main__":
     main()
