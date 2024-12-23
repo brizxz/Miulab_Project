@@ -5,7 +5,7 @@ from openai import OpenAI
 # Initialize OpenAI client
 client = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",
-    api_key="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"
+    api_key=""
 )
 
 # Load questions from JSON file
