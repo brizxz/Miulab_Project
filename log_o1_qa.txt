@@ -1,0 +1,21 @@
+Number of QA items: 10
+Exact Match Accuracy: 0.0
+
+ROUGE Results:
+  rouge1: 0.1967
+  rouge2: 0.0667
+  rougeL: 0.1967
+  rougeLsum: 0.1967
+
+BLEU Results:
+  BLEU Score: 0.0000
+  n-gram Precisions: [0.05555555555555555, 0.0, 0.0, 0.0]
+  Brevity Penalty: 0.1599
+  Length Ratio: 0.3529
+Average Levenshtein Distance: 69.8
+Average JS-Divergence: 0.6791261041639192
+
+BERTScore (using bert-base-uncased):
+  Average Precision: 0.8133
+  Average Recall:    0.8278
+  Average F1:        0.8196
